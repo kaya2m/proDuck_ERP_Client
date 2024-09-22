@@ -17,7 +17,7 @@ ProDuck, modern üretim süreçlerini dijitalleştirmek ve optimize etmek için 
   
 ## Kullanılan Teknolojiler
 
-**Yazılım:** .NET 8, PostgreSQL, Docker, Entity Framework
+**Yazılım:** Angular 18
 
 **Sunucu:** Azure Cloud
 
