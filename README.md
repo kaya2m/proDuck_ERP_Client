@@ -1,27 +1,33 @@
-# ProDuckERPClient
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.5.
+# proDuck ERP
+ProDuck, modern üretim süreçlerini dijitalleştirmek ve optimize etmek için geliştirilen kapsamlı bir ERP (Kurumsal Kaynak Planlama) sistemidir. ProDuck, kullanıcıların üretim, tedarik zinciri yönetimi, envanter kontrolü ve müşteri ilişkileri yönetimi gibi çeşitli işlevleri tek bir platformda yönetmelerine olanak tanır.
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Özellikler
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Üretim Yönetimi:** Üretim planlama, sipariş yönetimi ve süreç izleme.
+- **Tedarik Zinciri Yönetimi:** Tedarikçi yönetimi ve hammadde envanteri.
+- **Envanter Kontrolü:** Ürün ve stok yönetimi.
+- **Müşteri İlişkileri Yönetimi:** Müşteri bilgileri ve sipariş takibi.
+- **Kalite Kontrol:** Üretim sürecinde kalite kontrol ve raporlama.
+- **Raporlama ve Analiz:** Detaylı raporlar ve analizler.
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+  
+## Kullanılan Teknolojiler
 
-## Running unit tests
+**Yazılım:** Angular 18
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+**Sunucu:** Azure Cloud
 
-## Running end-to-end tests
+  ## Kullanım
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- **Giriş:** Uygulamaya giriş yapın ve ana kontrol paneline erişin.
+- **Üretim Planlama:** Yeni üretim planları oluşturun ve mevcut planları yönetin.
+- **Sipariş Yönetimi:** Siparişlerinizi görüntüleyin, güncelleyin ve yeni siparişler ekleyin.
+- **Envanter Kontrolü:** Mevcut stoklarınızı kontrol edin ve envanter hareketlerini yönetin.
+- **Raporlama:** Detaylı raporlar oluşturun ve analiz edin.
+## İletişim
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Sorularınız veya geri bildirimleriniz için lütfen [mkaya349@hotmail.com](mailto:mkaya349@hotmail.com) adresinden bizimle iletişime geçin.
