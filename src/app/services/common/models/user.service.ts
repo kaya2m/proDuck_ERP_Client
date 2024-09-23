@@ -26,20 +26,26 @@ export class UserService {
   async login(UsernameOrEmail: string, password: string, callBackFunction?:()=>void): Promise<void> {
     const observable: Observable<any | TokenResponse> = this.httpClient.post<any | TokenResponse>(
       {
-        controller: 'Auth',
-        action: 'login'
+      controller: 'Auth',
+      action: 'login'
       }, { UsernameOrEmail, password }
     );
-    const tokenResponse : TokenResponse= await firstValueFrom(observable) as TokenResponse;
-    console.log(tokenResponse.token.accessToken);  
-    if(tokenResponse){
-        localStorage.setItem("accessToken",tokenResponse.token.accessToken);
+    const tokenResponse : TokenResponse = await firstValueFrom(observable) as TokenResponse;
+    if(tokenResponse.statusCode == 200){
+      localStorage.setItem("accessToken", tokenResponse.token.accessToken);
 
-        this.toastrService.message("Giriş başarıyla sağlanmıştır", "Giriş Başarılı",{
-          messageType:ToastrMessageType.Success,
-          position:ToastrPosition.TopRight
-          });
+      this.toastrService.message("Giriş başarıyla sağlanmıştır", "Giriş Başarılı", {
+        messageType: ToastrMessageType.Success,
+        position: ToastrPosition.TopRight
+      });
       }
+    else {
+      this.toastrService.message("Giriş yapılırken bir hata meydana geldi", "Giriş Sağlanamadı", {
+      messageType: ToastrMessageType.Warning,
+      position: ToastrPosition.TopRight
+      });
+    }
+
     if (callBackFunction) {
       callBackFunction();
     }

@@ -1,8 +1,11 @@
+import { BreadcrumbsComponent } from './../../shared/components/breadcrumbs/breadcrumbs.component';
 // angular import
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { DattaConfig } from '../../../app.config';
 import { RouterModule } from '@angular/router';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 // project import
 
@@ -11,8 +14,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
   standalone: true,
-  imports: [RouterModule],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [RouterModule,NavBarComponent,NavigationComponent,CommonModule,BreadcrumbsComponent,],
 })
 export class AdminComponent {
   navCollapsed: any;

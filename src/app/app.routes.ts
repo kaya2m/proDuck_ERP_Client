@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './services/guards/common/auth.guard';
 import { AdminComponent } from './theme/layout/admin/admin.component';
-import AuthSigninComponent from './components/authentication/auth-signin/auth-signin.component';
+import { AuthSigninComponent } from './components/authentication/auth-signin/auth-signin.component';
+import AuthSignupComponent from './components/authentication/auth-signup/auth-signup.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
   },
   {
@@ -15,11 +16,15 @@ const routes: Routes = [
     component: AuthSigninComponent,
   },
   {
-    path: 'admin',
+    path: 'signup',
+    component: AuthSignupComponent,
+  },
+  {
+    path: 'dashboard',
     component: AdminComponent,
-    children: [
-      { path: 'dashboard', component: AdminComponent, canActivate: [AuthGuard] },
-    ],
+    // children: [
+    //   { path: 'dashboard', component: AdminComponent, canActivate: [AuthGuard] },
+    // ],
     canActivate: [AuthGuard],
   },
 ];

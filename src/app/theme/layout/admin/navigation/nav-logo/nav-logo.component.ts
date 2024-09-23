@@ -1,10 +1,14 @@
 // angular import
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-nav-logo',
   templateUrl: './nav-logo.component.html',
-  styleUrls: ['./nav-logo.component.scss']
+  styleUrls: ['./nav-logo.component.scss'],
+  standalone: true,
+  imports: [CommonModule,RouterModule],
 })
 export class NavLogoComponent {
   // public props

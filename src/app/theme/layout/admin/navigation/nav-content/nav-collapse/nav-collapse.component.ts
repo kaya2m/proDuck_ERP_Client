@@ -4,11 +4,16 @@ import { animate, style, transition, trigger } from '@angular/animations';
 
 // project import
 import { NavigationItem } from '../../navigation';
+import { RouterModule } from '@angular/router';
+import { NavGroupComponent } from '../nav-group/nav-group.component';
+import { NavItemComponent } from '../nav-item/nav-item.component';
 
 @Component({
   selector: 'app-nav-collapse',
   templateUrl: './nav-collapse.component.html',
   styleUrls: ['./nav-collapse.component.scss'],
+  standalone: true,
+  imports: [RouterModule,NavGroupComponent,NavItemComponent],
   animations: [
     trigger('slideInOut', [
       transition(':enter', [

@@ -1,1 +1,40 @@
-<router-outlet></router-outlet>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camply E-Ticaret</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .custom-spinner {
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+  <div>
+    <router-outlet><app-spinner></app-spinner></router-outlet>
+
+  </div>
+   <ngx-spinner name="spinner1" type="ball-atom" size="medium" color="#ff0"
+          background="linear-gradient(to right, #ff0, #9400d3)" bdColor="rgba(0, 0, 0, 0.8)" [fullScreen]="true">
+          <p style="color: white">Yükleniyor...</p>
+      </ngx-spinner>
+      <ngx-spinner name="spinner2" type="square-jelly-box" size="medium" color="#ff0"
+          background="linear-gradient(to right, #ff0, #9400d3)" bdColor="rgba(0, 0, 0, 0.8)" [fullScreen]="true">
+          <p style="color: white">Yükleniyor...</p>
+      </ngx-spinner>
+</body>
+
+</html>

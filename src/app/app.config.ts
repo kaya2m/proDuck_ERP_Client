@@ -5,6 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AppRoutingModule } from './app.routes';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { NavigationItem } from './theme/layout/admin/navigation/navigation';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,6 +17,8 @@ export const appConfig: ApplicationConfig = {
 
     importProvidersFrom(BrowserAnimationsModule),
     importProvidersFrom(AppRoutingModule),
+    importProvidersFrom( NgxSpinnerModule),
+    NavigationItem  ,
     importProvidersFrom(ToastrModule.forRoot()),
     importProvidersFrom(JwtModule.forRoot({
       config: {
