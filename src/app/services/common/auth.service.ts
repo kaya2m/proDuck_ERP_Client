@@ -6,22 +6,23 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AuthService {
 
-  constructor(private jwtHelper : JwtHelperService) { }
-  identitycheck()
-  {
+  constructor(private jwtHelper: JwtHelperService) { }
+
+  identityCheck(): boolean {
     const token = localStorage.getItem('accessToken');
 
-  let expired:boolean ;
-  try {
-    expired = this.jwtHelper.isTokenExpired(token);
+    if (!token) {
+      return false;
+    }
 
-  } catch (error) {
-    expired = true;
+    try {
+      return !this.jwtHelper.isTokenExpired(token);
+    } catch (error) {
+      return false;
+    }
   }
-  _isAuthenticated= token != null && !expired;
-  };
-  get isAuthenticated(){
-    return _isAuthenticated;
+
+  get isAuthenticated(): boolean {
+    return this.identityCheck();
   }
 }
-export let _isAuthenticated:boolean;

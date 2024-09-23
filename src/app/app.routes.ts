@@ -4,6 +4,7 @@ import { AuthGuard } from './services/guards/common/auth.guard';
 import { AdminComponent } from './theme/layout/admin/admin.component';
 import { AuthSigninComponent } from './components/authentication/auth-signin/auth-signin.component';
 import AuthSignupComponent from './components/authentication/auth-signup/auth-signup.component';
+import { CustomersComponent } from './components/pages/customers/customers.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,14 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: AdminComponent,
+    // children: [
+    //   { path: 'dashboard', component: AdminComponent, canActivate: [AuthGuard] },
+    // ],
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'customer',
+    component: CustomersComponent,
     // children: [
     //   { path: 'dashboard', component: AdminComponent, canActivate: [AuthGuard] },
     // ],

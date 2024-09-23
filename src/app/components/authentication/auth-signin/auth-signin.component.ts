@@ -29,7 +29,7 @@ export class AuthSigninComponent extends BaseComponent {
   async login(UsernameOrEmail: string, password: string) {
     this.showSpinner(SpinnerType.ballAtom);
     await this.userService.login(UsernameOrEmail, password, () => {
-      this.authService.identitycheck();
+      this.authService.identityCheck();
       this.activeRoute.queryParams.subscribe(params => {
         const returnUrl: string = params["returnUrl"]
         if (returnUrl) {

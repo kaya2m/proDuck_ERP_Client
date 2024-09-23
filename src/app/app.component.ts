@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
   }
   signOut() {
     localStorage.removeItem('accessToken');
-    this.authService.identitycheck();
+    this.authService.identityCheck();
     this.router.navigate(["/"]);
     this.toastr.message("Başarıyla çıkış yaptınız.","Oturum Kapatıldı",{
       messageType:ToastrMessageType.Info,
