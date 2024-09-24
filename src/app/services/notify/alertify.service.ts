@@ -6,15 +6,21 @@ declare let alertify: any;
 export class AlertifyService {
 
   constructor() { }
-  message(message:string,options :Partial<AlertifyOptions>){
-    alertify.set('notifier','delay',options.delay);
-    alertify.set('notifier','position',options.position);
-   if (options.messageType) {
-     const msg = alertify[options.messageType](message);
-     if (options.dismissOther) {
-       msg.dismissOthers();
-     }
-   }
+  message(message: string, options: Partial<AlertifyOptions>) {
+    if (options.delay) {
+      alertify.set('notifier', 'delay', options.delay);
+    }
+    if (options.position) {
+      alertify.set('notifier', 'position', options.position);
+    }
+    if (options.messageType) {
+      const msg = alertify[options.messageType](message);
+      if (options.dismissOther) {
+        msg.dismissOthers();
+      }
+    } else {
+      alertify.message(message);
+    }
   }
 
   dismiss(){

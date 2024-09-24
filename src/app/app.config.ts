@@ -12,7 +12,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(),
-    { provide: 'BASE_URL', useValue: 'https://localhost:44360/api' },
+    { provide: 'BASE_URL', useValue: 'https://localhost:7294/api' },
 
 
     importProvidersFrom(BrowserAnimationsModule),

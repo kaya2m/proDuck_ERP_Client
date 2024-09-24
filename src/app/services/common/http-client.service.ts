@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ResponseDto } from '../contracts/ResponseDto';
 
 @Injectable({
   providedIn: 'root'
@@ -13,47 +14,46 @@ export class HttpClientService {
     return `${requestParam.baseUrl ? requestParam.baseUrl : this.baseUrl}/${requestParam.controller}${requestParam.action ? `/${requestParam.action}` : ''}`;
   }
 
-  get<T>(requestParams: Partial<RequestParams>, id?: string): Observable<T> {
+  get<T>(requestParams: Partial<RequestParams>, id?: string): Observable<ResponseDto<T>> {
     let url: string = "";
 
     if (requestParams.fullEndPoint) {
       url = requestParams.fullEndPoint;
     } else {
       url = `${this.url(requestParams)}${id ? "/" + id : ""}${requestParams.queryString ? `?${requestParams.queryString}` : ''}`;
-
     }
 
-    return this.httpClient.get<T>(url, { headers: requestParams.headers });
+    return this.httpClient.get<ResponseDto<T>>(url, { headers: requestParams.headers });
   }
 
-  post<T>(requestParams: Partial<RequestParams>, body: Partial<T>): Observable<T> {
+  post<T>(requestParams: Partial<RequestParams>, body: Partial<T>): Observable<ResponseDto<T>> {
     let url: string = "";
     if (requestParams.fullEndPoint) {
       url = requestParams.fullEndPoint;
     } else {
       url = `${this.url(requestParams)}${requestParams.queryString ? `?${requestParams.queryString}` : ''}`;
     }
-    return this.httpClient.post<T>(url, body, { headers: requestParams.headers });
+    return this.httpClient.post<ResponseDto<T>>(url, body, { headers: requestParams.headers });
   }
 
-  put<T>(requestParams: Partial<RequestParams>, body: Partial<T>): Observable<T> {
+  put<T>(requestParams: Partial<RequestParams>, body: Partial<T>): Observable<ResponseDto<T>> {
     let url: string = "";
     if (requestParams.fullEndPoint) {
       url = requestParams.fullEndPoint;
     } else {
       url = `${this.url(requestParams)}${requestParams.queryString ? `?${requestParams.queryString}` : ''}`;
     }
-    return this.httpClient.put<T>(url, body, { headers: requestParams.headers });
+    return this.httpClient.put<ResponseDto<T>>(url, body, { headers: requestParams.headers });
   }
 
-  delete<T>(requestParameter: Partial<RequestParams>, id: string): Observable<T> {
+  delete<T>(requestParams: Partial<RequestParams>, id: string): Observable<ResponseDto<T>> {
     let url: string = "";
-    if (requestParameter.fullEndPoint)
-      url = requestParameter.fullEndPoint;
+    if (requestParams.fullEndPoint)
+      url = requestParams.fullEndPoint;
     else
-      url = `${this.url(requestParameter)}/${id}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
+      url = `${this.url(requestParams)}/${id}${requestParams.queryString ? `?${requestParams.queryString}` : ""}`;
 
-    return this.httpClient.delete<T>(url, { headers: requestParameter.headers });
+    return this.httpClient.delete<ResponseDto<T>>(url, { headers: requestParams.headers });
   }
 }
 

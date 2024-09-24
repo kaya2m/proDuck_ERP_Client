@@ -1,0 +1,104 @@
+<div class="row justify-content-center">
+  <div class="col-xl-12">
+    <app-card cardTitle="Customer List" [options]="false" blockClass="table-border-style">
+      <div class="card">
+        <p-table
+            #dt2
+            [value]="customers"
+            dataKey="id"
+            [rows]="10"
+            [rowsPerPageOptions]="[10, 25, 50]"
+            [loading]="loading"
+            [paginator]="true"
+            [globalFilterFields]="['name', 'countryCode', 'status']"
+            [tableStyle]="{ 'min-width': '75rem' }"
+        >
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <p-iconField iconPosition="left" class="ml-auto">
+                    <p-inputIcon>
+                        <i class="pi pi-search"></i>
+                    </p-inputIcon>
+                    <input
+                        pInputText
+                        type="text"
+                        placeholder="Search keyword" />
+                </p-iconField>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:22%">Code</th>
+                <th style="width:22%">Name</th>
+                <th style="width:22%">Country</th>
+                <th style="width:22%">City</th>
+                <th style="width:22%">Contact Number</th>
+                <th style="width:22%">Email</th>
+                <th style="width:12%">Status</th>
+                <th style="width:12%">Verified</th>
+            </tr>
+            <tr>
+                <th>
+                    <p-columnFilter type="text" field="code" placeholder="Search by code" ariaLabel="Filter Code" />
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="name" placeholder="Search by name" ariaLabel="Filter Name" />
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="countryCode" placeholder="Search by country" ariaLabel="Filter Country" />
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="city" placeholder="Search by city" ariaLabel="Filter City" />
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="contactNumber" placeholder="Search by contact number" ariaLabel="Filter Contact Number" />
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="email" placeholder="Search by email" ariaLabel="Filter Email" />
+                </th>
+                <th>
+                    <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
+                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                            <p-dropdown
+                                [options]="statuses"
+                                (onChange)="filter($event.value)"
+                                placeholder="Select One"
+                                [showClear]="true">
+                                    <ng-template let-option pTemplate="item">
+                                        <p-tag [value]="option.value" [severity]="getSeverity(option.label)" />
+                                    </ng-template>
+                            </p-dropdown>
+                        </ng-template>
+                    </p-columnFilter>
+                </th>
+                <th>
+                    <p-columnFilter type="boolean" field="verified" />
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-customer>
+            <tr>
+                <td>{{ customer.code }}</td>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.countryCode }}</td>
+                <td>{{ customer.city }}</td>
+                <td>{{ customer.contactNumber }}</td>
+                <td>{{ customer.email }}</td>
+                <td>
+                    <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+                </td>
+                <td>
+                    <i class="pi" [ngClass]="{ 'text-green-500 pi-check-circle': customer.verified, 'text-red-500 pi-times-circle': !customer.verified }"></i>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No customers found.</td>
+            </tr>
+        </ng-template>
+        </p-table>
+    </div>
+    </app-card>
+  </div>
+</div>
