@@ -23,18 +23,10 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: AdminComponent,
-    // children: [
-    //   { path: 'dashboard', component: AdminComponent, canActivate: [AuthGuard] },
-    // ],
     canActivate: [AuthGuard],
-  },
-  {
-    path: 'customer',
-    component: CustomersComponent,
-    // children: [
-    //   { path: 'dashboard', component: AdminComponent, canActivate: [AuthGuard] },
-    // ],
-    canActivate: [AuthGuard],
+    children: [
+      { path: 'customers', component: CustomersComponent },
+    ],
   },
 ];
 
@@ -42,6 +34,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {
-
-}
+export class AppRoutingModule {}

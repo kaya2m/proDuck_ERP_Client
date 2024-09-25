@@ -51,7 +51,7 @@ const NavigationItems = [
         id: 'forms-element',
         title: 'All Customer',
         type: 'item',
-        url: '/customer',
+        url: '/dashboard/customers',
         classes: 'nav-item',
         icon: 'feather icon-file-text'
       },
