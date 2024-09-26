@@ -11,6 +11,9 @@ export class HttpClientService {
   constructor(private httpClient: HttpClient, @Inject("BASE_URL") private baseUrl: string) { }
 
   private url(requestParam: Partial<RequestParams>): string {
+    let headers = requestParam.headers || new HttpHeaders();
+    headers = headers.append('Authorization', `Bearer ${localStorage.getItem('accessToken')}`);
+    requestParam.headers = headers;
     return `${requestParam.baseUrl ? requestParam.baseUrl : this.baseUrl}/${requestParam.controller}${requestParam.action ? `/${requestParam.action}` : ''}`;
   }
 

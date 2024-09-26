@@ -12,7 +12,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(),
-    { provide: 'BASE_URL', useValue: 'https://localhost:7294/api' },
+    { provide: 'BASE_URL', useValue: 'http://localhost:8080/api' },
 
 
     importProvidersFrom(BrowserAnimationsModule),
@@ -25,7 +25,7 @@ export const appConfig: ApplicationConfig = {
         tokenGetter: () => {
           return localStorage.getItem('accessToken');
         },
-        allowedDomains: ['localhost:44360']
+        allowedDomains: ['localhost:8080']
       }
     }))
   ],

@@ -53,11 +53,27 @@ const NavigationItems = [
         type: 'item',
         url: '/dashboard/customers',
         classes: 'nav-item',
-        icon: 'feather icon-file-text'
+        icon: 'feather icon-users'
       },
       {
         id: 'tables',
-        title: 'Tables',
+        title: 'Customers Address',
+        type: 'item',
+        url: '/tables/bootstrap',
+        classes: 'nav-item',
+        icon: 'feather icon-server'
+      },
+      {
+        id: 'tables',
+        title: 'Customers Products',
+        type: 'item',
+        url: '/tables/bootstrap',
+        classes: 'nav-item',
+        icon: 'feather icon-server'
+      },
+      {
+        id: 'tables',
+        title: 'Customers Finance',
         type: 'item',
         url: '/tables/bootstrap',
         classes: 'nav-item',
@@ -83,13 +99,13 @@ const NavigationItems = [
   },
   {
     id: 'pages',
-    title: 'Pages',
+    title: 'Prposal',
     type: 'group',
     icon: 'icon-pages',
     children: [
       {
         id: 'auth',
-        title: 'Authentication',
+        title: 'Meetings',
         type: 'collapse',
         icon: 'feather icon-lock',
         children: [
@@ -113,7 +129,7 @@ const NavigationItems = [
       },
       {
         id: 'sample-page',
-        title: 'Sample Page',
+        title: 'Meetings',
         type: 'item',
         url: '/sample-page',
         classes: 'nav-item',
@@ -121,7 +137,7 @@ const NavigationItems = [
       },
       {
         id: 'disabled-menu',
-        title: 'Disabled Menu',
+        title: 'Proposals',
         type: 'item',
         url: 'javascript:',
         classes: 'nav-item disabled',
@@ -130,7 +146,7 @@ const NavigationItems = [
       },
       {
         id: 'buy_now',
-        title: 'Buy Now',
+        title: 'Stock Movement',
         type: 'item',
         icon: 'feather icon-book',
         classes: 'nav-item',
