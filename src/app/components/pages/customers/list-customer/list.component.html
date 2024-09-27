@@ -14,7 +14,7 @@
             [tableStyle]="{ 'min-width': '75rem' }"
         >
         <ng-template pTemplate="caption">
-            <div class="flex">
+            <div class="">
                 <p-iconField iconPosition="left" class="ml-auto">
                     <p-inputIcon>
                         <i class="pi pi-search"></i>
@@ -24,6 +24,9 @@
                         type="text"
                         placeholder="Search keyword" />
                 </p-iconField>
+
+                  <p-button class="ms-4" label="Create Customer" [rounded]="true" size="small" icon="pi pi-plus" (click)="openCreateCustomerPopup()" />
+
             </div>
         </ng-template>
         <ng-template pTemplate="header">

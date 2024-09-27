@@ -1,0 +1,14 @@
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  gap: 0.5rem;
+}
+
+.p-button-sm {
+  font-size: 0.875rem; /* Smaller font size for the buttons */
+  padding: 0.5rem 1rem; /* Smaller padding for compact buttons */
+}

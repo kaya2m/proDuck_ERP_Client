@@ -1,0 +1,100 @@
+<div class="p-fluid grid formgrid row">
+  <!-- Left Column -->
+  <div class="col-12 col-md-6">
+    <div class="p-field">
+      <label for="code">Code</label>
+      <input id="code" pInputText [(ngModel)]="customer.code" placeholder="Enter code" />
+    </div>
+
+    <div class="p-field">
+      <label for="countryCode">Country Code</label>
+      <input id="countryCode" pInputText [(ngModel)]="customer.countryCode" placeholder="Enter country code" />
+    </div>
+
+    <div class="p-field">
+      <label for="townId">Town</label>
+      <p-dropdown id="townId" [(ngModel)]="customer.townId" [options]="towns" optionLabel="name" placeholder="Select a town"></p-dropdown>
+    </div>
+
+    <div class="p-field">
+      <label for="contactNumber">Contact Number</label>
+      <input id="contactNumber" pInputText [(ngModel)]="customer.contactNumber" placeholder="Enter contact number" />
+    </div>
+
+    <div class="p-field">
+      <label for="email">Email</label>
+      <input id="email" pInputText [(ngModel)]="customer.email" placeholder="Enter email" />
+    </div>
+
+    <div class="p-field">
+      <label for="address">Address</label>
+      <textarea id="address" pInputTextarea [(ngModel)]="customer.address" placeholder="Enter address"></textarea>
+    </div>
+
+    <div class="p-field">
+      <label for="postCode">Post Code</label>
+      <input id="postCode" pInputText [(ngModel)]="customer.postCode" placeholder="Enter post code" />
+    </div>
+
+    <div class="p-field">
+      <label for="taxNumber">Tax Number</label>
+      <input id="taxNumber" pInputText [(ngModel)]="customer.taxNumber" placeholder="Enter tax number" />
+    </div>
+  </div>
+
+  <!-- Right Column -->
+  <div class="col-12 col-md-6">
+    <div class="p-field">
+      <label for="name">Name</label>
+      <input id="name" pInputText [(ngModel)]="customer.name" placeholder="Enter name" />
+    </div>
+
+    <div class="p-field">
+      <label for="countryId">Country</label>
+      <p-dropdown id="countryId" [(ngModel)]="customer.countryId" [options]="countries" optionLabel="name" placeholder="Select a country"></p-dropdown>
+    </div>
+
+    <div class="p-field">
+      <label for="contactNumber2">Contact Number 2</label>
+      <input id="contactNumber2" pInputText [(ngModel)]="customer.contactNumber2" placeholder="Enter secondary contact number" />
+    </div>
+
+    <div class="p-field">
+      <label for="email2">Secondary Email</label>
+      <input id="email2" pInputText [(ngModel)]="customer.email2" placeholder="Enter secondary email" />
+    </div>
+
+    <div class="p-field">
+      <label for="address2">Secondary Address</label>
+      <textarea id="address2" pInputTextarea [(ngModel)]="customer.address2" placeholder="Enter secondary address"></textarea>
+    </div>
+
+    <div class="p-field">
+      <label for="companyName">Company Name</label>
+      <input id="companyName" pInputText [(ngModel)]="customer.companyName" placeholder="Enter company name" />
+    </div>
+
+    <div class="p-field">
+      <label for="taxOffice">Tax Office</label>
+      <input id="taxOffice" pInputText [(ngModel)]="customer.taxOffice" placeholder="Enter tax office" />
+    </div>
+
+    <div class="p-field">
+      <label for="idNumber">ID Number</label>
+      <input id="idNumber" pInputText [(ngModel)]="customer.idNumber" placeholder="Enter ID number" />
+    </div>
+  </div>
+
+  <!-- Full Width Field for Notes -->
+  <div class="col-12">
+    <div class="p-field">
+      <label for="notes">Notes</label>
+      <textarea id="notes" pInputTextarea [(ngModel)]="customer.notes" placeholder="Enter any notes"></textarea>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="dialog-footer">
+    <button pButton type="button" label="Save" icon="pi pi-check" class="p-button-sm" (click)="saveCustomer()"></button>
+    <button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-secondary p-button-sm" (click)="closeDialog()"></button>
+  </div>

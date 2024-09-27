@@ -36,7 +36,6 @@ export class CustomerService {
   }
 
   async read(page: number = 0, size: number = 5, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void) {
-    debugger
     const promiseData = this.httpClient.get<List_Customer[]>({
       controller: 'customers',
       queryString: `page=${page}&size=${size}`
