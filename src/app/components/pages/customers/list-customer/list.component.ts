@@ -16,7 +16,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
-import { DialogService } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CreateCustomerComponent } from '../create-customer/create-customer.component';
 @Component({
   selector: 'customer-list',
@@ -37,6 +37,7 @@ export class ListComponent extends BaseComponent implements OnInit {
     super(spinner);
   }
 
+  ref: DynamicDialogRef | undefined;
   customers!: List_Customer[]
   paginator: { pageIndex: number, pageSize: number } = { pageIndex: 0, pageSize: 5 };
 
@@ -100,14 +101,16 @@ export class ListComponent extends BaseComponent implements OnInit {
   }
 
   openCreateCustomerPopup() {
-    this.dialog.open(CreateCustomerComponent, {
+    this.ref = this.dialog.open(CreateCustomerComponent, {
       header: 'Create New Customer',
       width: '70%',
-      contentStyle: { 'max-height': '500px', 'overflow': 'auto' }, // Fixed height and overflow for scroll
+      modal: true,
+      contentStyle: { 'max-height': '500px', 'overflow': 'auto' },
       baseZIndex: 10000,
       closeOnEscape: false,
       dismissableMask: false,
       style: { 'border-radius': '25px' },
+      footer: 'footer',
     });
   }
 
