@@ -1,4 +1,5 @@
 export class List_Customer {
+  id: string;
   code: string;
   name: string;
   paymentMethod: string;

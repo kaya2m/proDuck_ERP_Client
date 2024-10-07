@@ -1,14 +1,4 @@
-.p-datatable .p-inputtext {
-    width: 100%;
-    margin: 0.5rem 0;
+
+  ::ng-deep .p-contextmenu .pi-trash {
+    color: #e91d1d !important;
   }
-  
-  .p-datatable .p-column-filter {
-    display: block;
-    margin: 0.5rem 0;
-  }
-  
-  .p-datatable .p-dropdown {
-    width: 100%;
-  }
-  

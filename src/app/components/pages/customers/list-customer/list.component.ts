@@ -1,3 +1,4 @@
+import { style } from '@angular/animations';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table, TableModule } from 'primeng/table';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -19,7 +20,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CreateCustomerComponent } from '../create-customer/create-customer.component';
 import { MenuItem } from 'primeng/api';
-import { ContextMenuModule } from 'primeng/contextmenu';
+import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
 @Component({
   selector: 'customer-list',
   templateUrl: './list.component.html',
@@ -31,6 +32,7 @@ import { ContextMenuModule } from 'primeng/contextmenu';
 
 export class ListComponent extends BaseComponent implements OnInit {
   totalCount: number;
+  customerId: string;
   columns: { field: string; header: string; filterType: string; }[];
   searchValue: any;
   constructor(
@@ -54,7 +56,7 @@ export class ListComponent extends BaseComponent implements OnInit {
   activityValues: number[] = [0, 100];
 
   contextMenuItems: MenuItem[] = [];
-
+  @ViewChild('cm') cm!: ContextMenu;
   async ngOnInit() {
     await this.getCustomerList();
     this.columns = [
@@ -80,8 +82,13 @@ export class ListComponent extends BaseComponent implements OnInit {
     ];
 
     this.contextMenuItems = [
-      { label: 'Delete', icon: 'pi pi-trash', command: () => this.deleteCustomer() }
+      {
+        label: 'Delete',
+        icon: 'pi pi-trash',
+        command: () => this.deleteCustomer(this.customerId)
+      }
     ];
+
   }
 
   async getCustomerList() {
@@ -120,9 +127,7 @@ export class ListComponent extends BaseComponent implements OnInit {
     }
     this.loading = false;
   }
-  deleteCustomer() {
 
-  }
 
   async pageChanged() {
     await this.getCustomerList();
@@ -131,28 +136,6 @@ export class ListComponent extends BaseComponent implements OnInit {
     table.clear();
   }
 
-  getSeverity(status: string) {
-    switch (status) {
-      case 'unqualified':
-        return 'danger';
-
-      case 'qualified':
-        return 'success';
-
-      case 'new':
-        return 'info';
-
-      case 'negotiation':
-        return 'warning';
-
-      case 'renewal':
-        return null;
-
-      default:
-
-        return 'secondary'; // Changed from 'unknown' to 'secondary'
-    }
-  }
 
   openCreateCustomerPopup() {
     this.ref = this.dialog.open(CreateCustomerComponent, {
@@ -169,7 +152,22 @@ export class ListComponent extends BaseComponent implements OnInit {
   }
   onGlobalFilter(table: Table, event: Event) {
     var text = (event.target as HTMLInputElement).value
-    debugger
     table.filterGlobal(text, 'contains');
+  }
+
+  onRightClick(event: MouseEvent, customer: List_Customer) {
+    event.preventDefault();
+    this.customerId = customer.id;
+    this.cm.show(event);
+  }
+
+  async deleteCustomer(id: string) {
+    await this.customerService.delete(id).then(
+      () => this.hideSpinner(SpinnerType.squareJellyBox),
+      errorMessage => this.alertifyService.message(errorMessage, {
+        dismissOther: true,
+      })
+    );
+
   }
 }
