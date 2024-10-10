@@ -21,6 +21,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CreateCustomerComponent } from '../create-customer/create-customer.component';
 import { MenuItem } from 'primeng/api';
 import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
+
 @Component({
   selector: 'customer-list',
   templateUrl: './list.component.html',
@@ -44,6 +45,7 @@ export class ListComponent extends BaseComponent implements OnInit {
     super(spinner);
   }
 
+  @ViewChild('table') table!: Table;
   ref: DynamicDialogRef | undefined;
   customers!: List_Customer[]
   paginator: { pageIndex: number, pageSize: number } = { pageIndex: 0, pageSize: 5 };
@@ -149,10 +151,6 @@ export class ListComponent extends BaseComponent implements OnInit {
       style: { 'border-radius': '25px' },
       footer: 'footer',
     });
-  }
-  onGlobalFilter(table: Table, event: Event) {
-    var text = (event.target as HTMLInputElement).value
-    table.filterGlobal(text, 'contains');
   }
 
   onRightClick(event: MouseEvent, customer: List_Customer) {

@@ -11,11 +11,17 @@
                     <!-- Global Arama -->
                     <ng-template pTemplate="caption">
                         <div class="d-flex align-items-center">
-                            <span class="p-input-icon-left p-ml-auto">
+                          <p-iconField iconPosition="left">
+                            <p-inputIcon>
                                 <i class="pi pi-search"></i>
-                                <input pInputText type="text" (input)="onGlobalFilter(table, $event)" placeholder="Ara..." />
-                            </span>
-                            <p-button class="ms-4" label="Müşteri Oluştur" [rounded]="true" size="small"
+                            </p-inputIcon>
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="table.filterGlobal($any($event.target).value ,'contains')"
+                                placeholder="Global Search" />
+                        </p-iconField>
+                            <p-button class="ms-4 " label="Müşteri Oluştur" [rounded]="true" raised="true"  size="small"
                                 icon="pi pi-plus" (click)="openCreateCustomerPopup()"></p-button>
                         </div>
                     </ng-template>

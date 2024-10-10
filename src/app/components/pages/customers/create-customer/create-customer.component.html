@@ -2,19 +2,8 @@
   <!-- Left Column -->
   <div class="col-12 col-md-6">
     <div class="p-field">
-      <label for="code">Code</label>
-      <input id="code" pInputText [(ngModel)]="customer.code" placeholder="Enter code" required  />
-
-    </div>
-
-    <div class="p-field">
-      <label for="countryCode">Country Code</label>
-      <input id="countryCode" pInputText [(ngModel)]="customer.countryCode" placeholder="Enter country code" />
-    </div>
-
-    <div class="p-field">
-      <label for="townId">Town</label>
-      <p-dropdown id="townId" [(ngModel)]="customer.townId" [options]="towns" optionLabel="name" placeholder="Select a town"></p-dropdown>
+      <label for="companyName">Company Name</label>
+      <input id="companyName" pInputText [(ngModel)]="customer.companyName" placeholder="Enter company name" />
     </div>
 
     <div class="p-field">
@@ -26,11 +15,17 @@
       <label for="email">Email</label>
       <input id="email" pInputText [(ngModel)]="customer.email" placeholder="Enter email" />
     </div>
+    <div class="p-field">
+      <label for="townId">Town</label>
+      <p-dropdown id="townId" [(ngModel)]="customer.townId" [options]="towns" optionLabel="name" placeholder="Select a town"></p-dropdown>
+    </div>
 
     <div class="p-field">
       <label for="address">Address</label>
       <textarea id="address" pInputTextarea [(ngModel)]="customer.address" placeholder="Enter address"></textarea>
     </div>
+
+
 
     <div class="p-field">
       <label for="postCode">Post Code</label>
@@ -45,15 +40,11 @@
 
   <!-- Right Column -->
   <div class="col-12 col-md-6">
-    <div class="p-field">
-      <label for="name">Name</label>
-      <input id="name" pInputText [(ngModel)]="customer.name" placeholder="Enter name" />
+ <div class="p-field">
+      <label for="name">Short Name</label>
+      <input id="name" pInputText [(ngModel)]="customer.name" placeholder="" />
     </div>
 
-    <div class="p-field">
-      <label for="countryId">Country</label>
-      <p-dropdown id="countryId" [(ngModel)]="customer.countryId" [options]="countries" optionLabel="name" placeholder="Select a country"></p-dropdown>
-    </div>
 
     <div class="p-field">
       <label for="contactNumber2">Contact Number 2</label>
@@ -65,14 +56,15 @@
       <input id="email2" pInputText [(ngModel)]="customer.email2" placeholder="Enter secondary email" />
     </div>
 
+
     <div class="p-field">
-      <label for="address2">Secondary Address</label>
-      <textarea id="address2" pInputTextarea [(ngModel)]="customer.address2" placeholder="Enter secondary address"></textarea>
+      <label for="countryId">Country</label>
+      <p-dropdown id="countryId" [(ngModel)]="customer.countryId" [options]="countries" optionLabel="name" placeholder="Select a country"></p-dropdown>
     </div>
 
     <div class="p-field">
-      <label for="companyName">Company Name</label>
-      <input id="companyName" pInputText [(ngModel)]="customer.companyName" placeholder="Enter company name" />
+      <label for="address2">Secondary Address</label>
+      <textarea id="address2" pInputTextarea [(ngModel)]="customer.address2" placeholder="Enter secondary address"></textarea>
     </div>
 
     <div class="p-field">

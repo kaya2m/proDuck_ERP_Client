@@ -12,3 +12,12 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
+
+ol, ul {
+  padding-left: 0rem !important;
+}
+.p-button
+{
+  margin: 0px 5px;
+  border-radius: 8px;
+}
