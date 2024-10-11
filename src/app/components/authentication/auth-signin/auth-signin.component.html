@@ -17,16 +17,19 @@
             <div class="mb-3">
               <input pInputText
                 #txtusernameOrEmail
-                placeholder="Username" />
+                placeholder="Username"
+                (keydown.enter)="login(txtusernameOrEmail.value, txtPassword.value)"/>
             </div>
           </div>
           <div class="col-md-12">
             <div class="mb-3">
               <p-password #txtPassword
-              id="password"
+                id="password"
                 [toggleMask]="true"
                 [feedback]="false"
-                placeholder="Password"> </p-password>
+                placeholder="Password"
+                (keydown.enter)="login(txtusernameOrEmail.value, txtPassword.value)"
+                > </p-password>
             </div>
           </div>
         </div>

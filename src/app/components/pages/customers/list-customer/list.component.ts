@@ -5,7 +5,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from '../../../../services/base/base.component';
 import { CustomerService } from '../../../../services/common/models/customer.service';
 import { AlertifyService, MessageType, Position } from '../../../../services/notify/alertify.service';
-// import { DialogService } from '../../../../services/common/dialog.service';
 import { List_Customer } from '../../../../services/contracts/customer/List_Customer';
 import { CardComponent } from "../../../../theme/shared/components/card/card.component";
 import { TagModule } from 'primeng/tag';
@@ -21,6 +20,8 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CreateCustomerComponent } from '../create-customer/create-customer.component';
 import { MenuItem } from 'primeng/api';
 import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
+import { CustomerUpdateComponent } from '../update-customer/customer-update.component';
+import { Create_Customer } from '../../../../services/contracts/customer/Create_Customer';
 
 @Component({
   selector: 'customer-list',
@@ -32,10 +33,6 @@ import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
 })
 
 export class ListComponent extends BaseComponent implements OnInit {
-  totalCount: number;
-  customerId: string;
-  columns: { field: string; header: string; filterType: string; }[];
-  searchValue: any;
   constructor(
     private customerService: CustomerService,
     spinner: NgxSpinnerService,
@@ -49,38 +46,39 @@ export class ListComponent extends BaseComponent implements OnInit {
   ref: DynamicDialogRef | undefined;
   customers!: List_Customer[]
   paginator: { pageIndex: number, pageSize: number } = { pageIndex: 0, pageSize: 5 };
-
-
+  totalCount: number;
+  customerId: string;
+  customer: List_Customer;
+  columns: { field: string; header: string; filterType: string; }[];
+  searchValue: any;
   statuses!: any[];
-
   loading: boolean = true;
-
   activityValues: number[] = [0, 100];
-
   contextMenuItems: MenuItem[] = [];
   @ViewChild('cm') cm!: ContextMenu;
+
   async ngOnInit() {
     await this.getCustomerList();
     this.columns = [
-      { field: 'code', header: 'Code', filterType: 'text' },
-      { field: 'name', header: 'Name', filterType: 'text' },
-      { field: 'paymentMethod', header: 'Payment Method', filterType: 'text' },
-      { field: 'countryCode', header: 'Country Code', filterType: 'text' },
-      { field: 'country', header: 'Country', filterType: 'text' },
-      { field: 'city', header: 'City', filterType: 'text' },
-      { field: 'town', header: 'Town', filterType: 'text' },
-      { field: 'contactNumber', header: 'Contact Number', filterType: 'text' },
-      { field: 'contactNumber2', header: 'Contact Number 2', filterType: 'text' },
+      { field: 'code', header: 'Kod', filterType: 'text' },
+      { field: 'name', header: 'Kısa Ad', filterType: 'text' },
+      { field: 'paymentMethod', header: 'Ödeme Türü', filterType: 'text' },
+      { field: 'countryCode', header: 'Ülke Kodu', filterType: 'text' },
+      { field: 'country', header: 'Ülke', filterType: 'text' },
+      { field: 'city', header: 'İl', filterType: 'text' },
+      { field: 'town', header: 'İlçe', filterType: 'text' },
+      { field: 'contactNumber', header: 'İletişim No', filterType: 'text' },
+      { field: 'contactNumber2', header: 'İletişim No 2', filterType: 'text' },
       { field: 'email', header: 'Email', filterType: 'text' },
       { field: 'email2', header: 'Email 2', filterType: 'text' },
-      { field: 'address', header: 'Address', filterType: 'text' },
-      { field: 'address2', header: 'Address 2', filterType: 'text' },
-      { field: 'postCode', header: 'Post Code', filterType: 'text' },
-      { field: 'companyName', header: 'Company Name', filterType: 'text' },
-      { field: 'taxNumber', header: 'Tax Number', filterType: 'text' },
-      { field: 'taxOffice', header: 'Tax Office', filterType: 'text' },
-      { field: 'idNumber', header: 'ID Number', filterType: 'text' },
-      { field: 'notes', header: 'Notes', filterType: 'text' }
+      { field: 'address', header: 'Adres', filterType: 'text' },
+      { field: 'address2', header: 'Adres 2', filterType: 'text' },
+      { field: 'postCode', header: 'Posta Kodu', filterType: 'text' },
+      { field: 'companyName', header: 'Firma Adı', filterType: 'text' },
+      { field: 'taxNumber', header: 'Vergi Numarası', filterType: 'text' },
+      { field: 'taxOffice', header: 'Vergi Dairesi', filterType: 'text' },
+      { field: 'idNumber', header: 'Kimlik Numarası', filterType: 'text' },
+      { field: 'notes', header: 'Not', filterType: 'text' }
     ];
 
     this.contextMenuItems = [
@@ -88,10 +86,15 @@ export class ListComponent extends BaseComponent implements OnInit {
         label: 'Delete',
         icon: 'pi pi-trash',
         command: () => this.deleteCustomer(this.customerId)
+      },{
+        label: 'Update',
+        icon: 'pi pi-pencil',
+        command: () => this.updateCustomer(this.customer)
       }
     ];
 
   }
+
 
   async getCustomerList() {
     this.loading = true;
@@ -109,6 +112,7 @@ export class ListComponent extends BaseComponent implements OnInit {
     }
     this.loading = false;
   }
+
   async loadCustomers(event: any) {
     this.loading = true;
     const pageNumber = event.first / event.rows;
@@ -142,7 +146,7 @@ export class ListComponent extends BaseComponent implements OnInit {
   openCreateCustomerPopup() {
     this.ref = this.dialog.open(CreateCustomerComponent, {
       header: 'Create New Customer',
-      width: '70%',
+      width: '60%',
       modal: true,
       contentStyle: { 'max-height': '500px', 'overflow': 'auto' },
       baseZIndex: 10000,
@@ -152,20 +156,42 @@ export class ListComponent extends BaseComponent implements OnInit {
       footer: 'footer',
     });
   }
-
+  updateCustomer(customer : List_Customer) {
+    this.ref = this.dialog.open(CustomerUpdateComponent, {
+      header: 'Update Customer',
+      width: '60%',
+      modal: true,
+      contentStyle: { 'max-height': '500px', 'overflow': 'auto' },
+      baseZIndex: 10000,
+      closeOnEscape: false,
+      dismissableMask: false,
+      style: { 'border-radius': '25px' },
+      footer: 'footer',
+      data: {customer}
+    });
+  }
   onRightClick(event: MouseEvent, customer: List_Customer) {
     event.preventDefault();
     this.customerId = customer.id;
+    this.customer = customer;
     this.cm.show(event);
   }
 
   async deleteCustomer(id: string) {
-    await this.customerService.delete(id).then(
-      () => this.hideSpinner(SpinnerType.squareJellyBox),
-      errorMessage => this.alertifyService.message(errorMessage, {
-        dismissOther: true,
-      })
-    );
+  var result =  await this.customerService.delete(id);
+    if (result.isSuccessfull) {
+      this.alertifyService.message("Customer Deleted", {
+        messageType: MessageType.Success,
+        position: Position.TopRight
+      });
+      this.getCustomerList();
+    }
+    else {
+      this.alertifyService.message("Customer could not be deleted", {
+        messageType: MessageType.Error,
+        position: Position.TopRight
+      });
+    }
 
   }
 }

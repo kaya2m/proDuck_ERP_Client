@@ -69,12 +69,9 @@ export default class AuthSignupComponent {
   submitted: boolean = false;
   async onSubmit(user: User) {
     this.submitted = true;
-
     if (this.frm.invalid)
       return;
-
     const result: any = await this.userService.create(user);
-    debugger
     if (result.succeeded)
       this.toastrService.message(result.message, "Kullanıcı Kaydı Başarılı", {
         messageType: ToastrMessageType.Success,

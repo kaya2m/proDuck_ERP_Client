@@ -2,3 +2,9 @@
   ::ng-deep .p-contextmenu .pi-trash {
     color: #e91d1d !important;
   }
+
+  ::ng-deep .p-contextmenu .pi-pencil {
+    color: #eb7526 !important;
+  }
+
+  

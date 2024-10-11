@@ -1,28 +1,30 @@
-import { Customer } from './../../../../services/entites/Customer';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Create_Customer } from '../../../../services/contracts/customer/Create_Customer';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { FieldsetModule } from 'primeng/fieldset';
+import { InputMaskModule } from 'primeng/inputmask';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { DropdownModule } from 'primeng/dropdown';
-import { ButtonModule } from 'primeng/button';
-import { FieldsetModule } from 'primeng/fieldset';
-import { DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { CommonModule } from '@angular/common';
-import { CustomerService } from '../../../../services/common/models/customer.service';
 import { ListComponent } from '../list-customer/list.component';
+import { CustomerService } from '../../../../services/common/models/customer.service';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../../../services/notify/custom-toastr-service.service';
-import {InputMaskModule} from 'primeng/inputmask';
+import { Create_Customer } from '../../../../services/contracts/customer/Create_Customer';
 
 @Component({
-  selector: 'app-create-customer',
+  selector: 'app-customer-update',
   standalone: true,
   imports: [FormsModule, InputTextModule, InputTextareaModule, DropdownModule, ButtonModule, FieldsetModule, DynamicDialogModule, CommonModule,ReactiveFormsModule,InputMaskModule],
-  templateUrl: './create-customer.component.html',
-  styleUrl: './create-customer.component.css',
+
+  templateUrl: './customer-update.component.html',
+  styleUrl: './customer-update.component.css'
 })
-export class CreateCustomerComponent implements OnInit {
-  constructor(public ref: DynamicDialogRef,private customerService : CustomerService,private toastrService: CustomToastrService,private fb: FormBuilder) {}
+export class CustomerUpdateComponent {
+
+  constructor(public ref: DynamicDialogRef,private customerService : CustomerService,private toastrService: CustomToastrService,private fb: FormBuilder) {
+  }
   @ViewChild(ListComponent) listComponent!: ListComponent;
   customer:FormGroup
 
@@ -62,11 +64,12 @@ export class CreateCustomerComponent implements OnInit {
 
     });
   }
+
   countries = [{id:"b77d409a-10cd-4a47-8e94-b0cd0ab50aa1" , name: 'Country1', code: 'C1' }, {id:"3fa85f64-5717-4562-b3fc-2c963f66afa6" ,  name: 'Country2', code: 'C2' }];
   cities = [{id:"b77d409a-10cd-4a47-8e94-b0cd0ab50aa1" , name: 'City1' }, {id:"b77d409a-10cd-4a47-8e94-b0cd0ab50aa1", name: 'City2' }];
   towns = [{ id:"b77d409a-10cd-4a47-8e94-b0cd0ab50aa1" ,name: 'Town1' }, {id:"b77d409a-10cd-4a47-8e94-b0cd0ab50aa1", name: 'Town2' }];
 
-  saveCustomer(customer: Create_Customer) {
+  updateCustomer(customer: Create_Customer) {
     debugger;
     if (this.customer.valid) {
    this.customerService.create(customer,

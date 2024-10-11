@@ -12,13 +12,14 @@ import { ResponseDto } from '../../contracts/ResponseDto';
 export class CustomerService {
 
   constructor(private httpClient: HttpClientService, private htpClient :HttpClient) { }
-  create(customer: Create_Customer, successCallBack: () => void, errorCallBack: (errorMessage: string) => void) {
+
+  create(customer: Create_Customer, successCallBack: (result) => void, errorCallBack: (errorMessage: string) => void) {
     this.httpClient.post({
       controller: 'customers'
     }, customer)
       .subscribe(
         (result) => {
-          successCallBack();
+          successCallBack(result);
         },
         (errorResponse: HttpErrorResponse) => {
           const _error: { key: string, value: string[] }[] = errorResponse.error;
@@ -51,6 +52,6 @@ export class CustomerService {
   const deleteObservable: Observable<any>=  this.httpClient.delete<any>({
       controller: 'customers'
     },id);
-    await firstValueFrom(deleteObservable);
+   return await firstValueFrom(deleteObservable);
   }
 }
