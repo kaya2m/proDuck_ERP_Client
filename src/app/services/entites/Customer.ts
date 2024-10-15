@@ -7,7 +7,7 @@ export class Customer {
     countryCode: string,
     countryId: string,
     cityId: string,
-    townId: string,
+    districtId: string,
     contactNumber: string,
     contactNumber2: string,
     email: string,

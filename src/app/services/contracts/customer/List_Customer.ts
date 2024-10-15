@@ -6,7 +6,7 @@ export class List_Customer {
   countryCode: string;
   country: string;
   city: string;
-  town: string;
+  district: string;
   contactNumber: string;
   contactNumber2: string;
   email: string;

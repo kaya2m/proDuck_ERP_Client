@@ -54,4 +54,27 @@ export class CustomerService {
     },id);
    return await firstValueFrom(deleteObservable);
   }
+
+  async update(customer: Create_Customer, successCallBack: (result) => void, errorCallBack: (errorMessage: string) => void) {
+    this.httpClient.put({
+      controller: 'customers'
+    }, customer)
+      .subscribe(
+        (result) => {
+          successCallBack(result);
+        },
+        (errorResponse: HttpErrorResponse) => {
+          const _error: { key: string, value: string[] }[] = errorResponse.error;
+          let message = '';
+
+          _error.forEach((v) => {
+            v.value.forEach((_v) => {
+              message += _v + '\n';
+            });
+          });
+
+          errorCallBack(message);
+        }
+      );
+  }
 }

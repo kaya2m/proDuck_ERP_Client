@@ -2,14 +2,16 @@
   <div class="p-fluid grid formgrid row">
     <!-- Left Column -->
     <div class="col-12 col-md-6">
+      <!-- Company Name -->
       <div class="p-field">
         <label for="companyName">Company Name</label>
-        <input id="companyName"  pInputText formControlName="companyName" />
+        <input id="companyName" pInputText formControlName="companyName" />
         <small *ngIf="customer.get('companyName').invalid && customer.get('companyName').touched" class="p-error">
           Company Name is required.
         </small>
       </div>
 
+      <!-- Contact Number -->
       <div class="p-field">
         <label for="contactNumber">Contact Number</label>
         <p-inputMask mask="(999) 999-9999" formControlName="contactNumber" placeholder="(553) 123-4356"></p-inputMask>
@@ -18,6 +20,7 @@
         </small>
       </div>
 
+      <!-- Email -->
       <div class="p-field">
         <label for="email">Email</label>
         <input id="email" pInputText formControlName="email" />
@@ -26,23 +29,29 @@
         </small>
       </div>
 
+      <!-- Country -->
       <div class="p-field">
-        <label for="cityId">City</label>
-        <p-dropdown id="cityId" formControlName="cityId" [options]="cities" optionLabel="name" optionValue="id"></p-dropdown>
-        <small *ngIf="customer.get('cityId').invalid && customer.get('cityId').touched" class="p-error">
-          City is required.
-        </small>
-      </div>
-
-      <div class="p-field">
-        <label for="townId">Town</label>
-        <p-dropdown id="townId" formControlName="townId"  [options]="towns" optionLabel="name"  optionValue="id"></p-dropdown>
-        <small *ngIf="customer.get('townId').invalid && customer.get('townId').touched" class="p-error">
-          Town is required.
+        <label for="countryId">Country</label>
+        <p-dropdown id="countryId" formControlName="countryId" [options]="countries" optionLabel="countryName"
+          optionValue="countryId" filter="true"> </p-dropdown>
+        <small *ngIf="customer.get('countryId').invalid && customer.get('countryId').touched" class="p-error">
+          Country is required.
         </small>
       </div>
 
 
+
+      <!-- District -->
+      <div class="p-field">
+        <label for="districtId">District</label>
+        <p-dropdown id="districtId" formControlName="districtId" [options]="districts" optionLabel="districtName"
+          optionValue="districtId" filter="true"></p-dropdown>
+        <small *ngIf="customer.get('districtId').invalid && customer.get('districtId').touched" class="p-error">
+          District is required.
+        </small>
+      </div>
+
+      <!-- Address -->
       <div class="p-field">
         <label for="address">Address</label>
         <textarea id="address" pInputTextarea formControlName="address"></textarea>
@@ -51,6 +60,7 @@
         </small>
       </div>
 
+      <!-- Post Code -->
       <div class="p-field">
         <label for="postCode">Post Code</label>
         <input id="postCode" pInputText formControlName="postCode" type="text" />
@@ -59,9 +69,10 @@
         </small>
       </div>
 
+      <!-- Tax Number -->
       <div class="p-field">
         <label for="taxNumber">Tax Number</label>
-        <input id="taxNumber" pInputText formControlName="taxNumber"  />
+        <input id="taxNumber" pInputText formControlName="taxNumber" />
         <small *ngIf="customer.get('taxNumber').invalid && customer.get('taxNumber').touched" class="p-error">
           Tax Number is required.
         </small>
@@ -70,6 +81,7 @@
 
     <!-- Right Column -->
     <div class="col-12 col-md-6">
+      <!-- Short Name -->
       <div class="p-field">
         <label for="name">Short Name</label>
         <input id="name" pInputText formControlName="name" />
@@ -78,37 +90,54 @@
         </small>
       </div>
 
+      <!-- Contact Number 2 -->
       <div class="p-field">
         <label for="contactNumber2">Contact Number 2</label>
         <p-inputMask mask="(999) 999-9999" formControlName="contactNumber2" placeholder="(553) 123-4356"></p-inputMask>
       </div>
 
+      <!-- Secondary Email -->
       <div class="p-field">
         <label for="email2">Secondary Email</label>
         <input id="email2" pInputText formControlName="email2" />
       </div>
 
+      <!-- City -->
       <div class="p-field">
-        <label for="countryId">Country</label>
-        <p-dropdown id="countryId" formControlName="countryId" [options]="countries" optionLabel="name" optionValue="id"></p-dropdown>
-        <small *ngIf="customer.get('countryId').invalid && customer.get('countryId').touched" class="p-error">
-          Country is required.
+        <label for="cityId">City</label>
+        <p-dropdown id="cityId" formControlName="cityId" [options]="cities" optionLabel="cityName" optionValue="cityId"
+          filter="true"></p-dropdown>
+        <small *ngIf="customer.get('cityId').invalid && customer.get('cityId').touched" class="p-error">
+          City is required.
         </small>
       </div>
 
+      <!-- Neighborhood -->
+      <div class="p-field">
+        <label for="neighborhoodId">Neighborhood</label>
+        <p-dropdown id="neighborhoodId" formControlName="neighborhoodId" [options]="neighborhoods"
+          optionLabel="neighborhoodName" optionValue="neighborhoodId" filter="true"></p-dropdown>
+        <small *ngIf="customer.get('neighborhoodId').invalid && customer.get('neighborhoodId').touched" class="p-error">
+          Neighborhood is required.
+        </small>
+      </div>
+
+      <!-- Secondary Address -->
       <div class="p-field">
         <label for="address2">Secondary Address</label>
         <textarea id="address2" pInputTextarea formControlName="address2"></textarea>
       </div>
 
+      <!-- Tax Office -->
       <div class="p-field">
         <label for="taxOffice">Tax Office</label>
         <input id="taxOffice" pInputText formControlName="taxOffice" />
       </div>
 
+      <!-- ID Number -->
       <div class="p-field">
         <label for="idNumber">ID Number</label>
-        <input id="idNumber" pInputText formControlName="idNumber"  />
+        <input id="idNumber" pInputText formControlName="idNumber" />
       </div>
     </div>
 
@@ -122,8 +151,10 @@
 
     <!-- Action Buttons -->
     <div class="dialog-footer">
-      <button pButton type="submit" label="Save" icon="pi pi-check" class="p-button-sm" [disabled]="customer.invalid"></button>
-      <button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-secondary p-button-sm" (click)="closeDialog()"></button>
+      <button pButton type="submit" label="Save" icon="pi pi-check" class="p-button-sm"
+        [disabled]="customer.invalid"></button>
+      <button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-secondary p-button-sm"
+        (click)="closeDialog()"></button>
     </div>
   </div>
 </form>

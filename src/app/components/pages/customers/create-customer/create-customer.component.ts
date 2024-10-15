@@ -12,80 +12,137 @@ import { CommonModule } from '@angular/common';
 import { CustomerService } from '../../../../services/common/models/customer.service';
 import { ListComponent } from '../list-customer/list.component';
 import { CustomToastrService, ToastrMessageType, ToastrPosition } from '../../../../services/notify/custom-toastr-service.service';
-import {InputMaskModule} from 'primeng/inputmask';
+import { InputMaskModule } from 'primeng/inputmask';
+import { AddressService } from '../../../../services/common/models/address.service';
 
 @Component({
   selector: 'app-create-customer',
   standalone: true,
-  imports: [FormsModule, InputTextModule, InputTextareaModule, DropdownModule, ButtonModule, FieldsetModule, DynamicDialogModule, CommonModule,ReactiveFormsModule,InputMaskModule],
+  imports: [FormsModule, InputTextModule, InputTextareaModule, DropdownModule, ButtonModule, FieldsetModule, DynamicDialogModule, CommonModule, ReactiveFormsModule, InputMaskModule],
   templateUrl: './create-customer.component.html',
   styleUrl: './create-customer.component.css',
 })
 export class CreateCustomerComponent implements OnInit {
-  constructor(public ref: DynamicDialogRef,private customerService : CustomerService,private toastrService: CustomToastrService,private fb: FormBuilder) {}
   @ViewChild(ListComponent) listComponent!: ListComponent;
-  customer:FormGroup
+
+  customer: FormGroup;
+  countries: any[] = [];
+  cities: any[] = [];
+  districts: any[] = [];
+  neighborhoods: any[] = [];
+
+  constructor(
+    public ref: DynamicDialogRef,
+    private customerService: CustomerService,
+    private toastrService: CustomToastrService,
+    private fb: FormBuilder,
+    private addressService: AddressService
+  ) { }
 
   ngOnInit(): void {
     this.customer = this.fb.group({
-
       companyName: ['', Validators.required],
-
       contactNumber: ['', Validators.required],
-
       email: ['', [Validators.required, Validators.email]],
-
-      townId: ['', Validators.required],
-      cityId: ['', Validators.required],
-
-      address: ['', Validators.required],
-
-      postCode: ['', Validators.required],
-
-      taxNumber: ['', Validators.required],
-
-      name: ['', Validators.required],
-
-      contactNumber2: [''],
-
-      email2: ['', [Validators.email]],
-
       countryId: ['', Validators.required],
-
+      cityId: [{ value: '', disabled: true }, Validators.required],
+      districtId: [{ value: '', disabled: true }, Validators.required],
+      neighborhoodId: [{ value: '', disabled: true }],
+      address: ['', Validators.required],
+      postCode: ['', Validators.required],
+      taxNumber: ['', Validators.required],
+      name: ['', Validators.required],
+      contactNumber2: [''],
+      email2: ['', Validators.email],
       address2: [''],
-
       taxOffice: [''],
-
       idNumber: [''],
+      notes: [''],
+    });
 
-      notes: ['']
+    this.addressService.getCountry().subscribe((response) => {
+      this.countries = response.data;
+    });
 
+    this.customer.get('countryId')?.valueChanges.subscribe((countryId: string) => {
+      this.onCountryChange(countryId);
+    });
+
+    this.customer.get('cityId')?.valueChanges.subscribe((cityId: string) => {
+      this.onCityChange(cityId);
+    });
+
+    this.customer.get('districtId')?.valueChanges.subscribe((districtId: string) => {
+      this.onDistrictChange(districtId);
     });
   }
-  countries = [{id:"b77d409a-10cd-4a47-8e94-b0cd0ab50aa1" , name: 'Country1', code: 'C1' }, {id:"3fa85f64-5717-4562-b3fc-2c963f66afa6" ,  name: 'Country2', code: 'C2' }];
-  cities = [{id:"b77d409a-10cd-4a47-8e94-b0cd0ab50aa1" , name: 'City1' }, {id:"b77d409a-10cd-4a47-8e94-b0cd0ab50aa1", name: 'City2' }];
-  towns = [{ id:"b77d409a-10cd-4a47-8e94-b0cd0ab50aa1" ,name: 'Town1' }, {id:"b77d409a-10cd-4a47-8e94-b0cd0ab50aa1", name: 'Town2' }];
 
-  saveCustomer(customer: Create_Customer) {
-    debugger;
-    if (this.customer.valid) {
-   this.customerService.create(customer,
-    (result)=>{
-      result;
-      this.toastrService.message("Müşteri Kaydı","Müşteri başarılı bir şekilde kaydoldu", {
-        messageType: ToastrMessageType.Success,
-        position: ToastrPosition.TopRight
-      })
-      this.closeDialog()
-      this.listComponent.getCustomerList();
-    },
-    (error)=>{alert(error)});
+  onCountryChange(countryId: string) {
+    this.customer.get('cityId')?.reset({ value: '', disabled: true });
+    this.customer.get('districtId')?.reset({ value: '', disabled: true });
+    this.customer.get('neighborhoodId')?.reset({ value: '', disabled: true });
+    this.cities = [];
+    this.districts = [];
+    this.neighborhoods = [];
+
+    if (countryId) {
+      this.addressService.getCity(countryId).subscribe((response) => {
+        this.cities = response.data;
+        this.customer.get('cityId')?.enable();
+      });
     }
-    else {
-      this.toastrService.message("","Müşteri kaydı başarısız lütfen zorunlu alanları doldunuz", {
+  }
+
+  onCityChange(cityId: string) {
+    this.customer.get('districtId')?.reset({ value: '', disabled: true });
+    this.customer.get('neighborhoodId')?.reset({ value: '', disabled: true });
+    this.districts = [];
+    this.neighborhoods = [];
+
+    if (cityId) {
+      this.addressService.getDistrict(cityId).subscribe((response) => {
+        this.districts = response.data;
+        this.customer.get('districtId')?.enable();
+      });
+    }
+  }
+
+  onDistrictChange(districtId: string) {
+    this.customer.get('neighborhoodId')?.reset({ value: '', disabled: true });
+    this.neighborhoods = [];
+
+    if (districtId) {
+      this.addressService.getNeighborhood(districtId).subscribe((response) => {
+        this.neighborhoods = response.data;
+        this.customer.get('neighborhoodId')?.enable();
+      });
+    }
+  }
+
+  async saveCustomer(customer: any) {
+    if (this.customer.valid) {
+      this.customerService.create(
+        customer,
+        async (result) => {
+          this.toastrService.message('Customer Saved', result.message, {
+            messageType: ToastrMessageType.Success,
+            position: ToastrPosition.TopRight,
+          });
+          this.closeDialog();
+          await this.listComponent.getCustomerList();
+        },
+        (error) => {
+          this.toastrService.message('Error', 'Error saving customer', {
+            messageType: ToastrMessageType.Error,
+            position: ToastrPosition.TopCenter,
+          });
+        }
+      );
+    } else {
+      this.toastrService.message('Validation Error', 'Please fill in the required fields', {
         messageType: ToastrMessageType.Error,
-        position: ToastrPosition.TopCenter
-      })
+        position: ToastrPosition.TopCenter,
+      });
     }
   }
 

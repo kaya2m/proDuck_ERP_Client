@@ -66,7 +66,7 @@ export class ListComponent extends BaseComponent implements OnInit {
       { field: 'countryCode', header: 'Ülke Kodu', filterType: 'text' },
       { field: 'country', header: 'Ülke', filterType: 'text' },
       { field: 'city', header: 'İl', filterType: 'text' },
-      { field: 'town', header: 'İlçe', filterType: 'text' },
+      { field: 'district', header: 'İlçe', filterType: 'text' },
       { field: 'contactNumber', header: 'İletişim No', filterType: 'text' },
       { field: 'contactNumber2', header: 'İletişim No 2', filterType: 'text' },
       { field: 'email', header: 'Email', filterType: 'text' },
@@ -86,7 +86,7 @@ export class ListComponent extends BaseComponent implements OnInit {
         label: 'Delete',
         icon: 'pi pi-trash',
         command: () => this.deleteCustomer(this.customerId)
-      },{
+      }, {
         label: 'Update',
         icon: 'pi pi-pencil',
         command: () => this.updateCustomer(this.customer)
@@ -156,7 +156,7 @@ export class ListComponent extends BaseComponent implements OnInit {
       footer: 'footer',
     });
   }
-  updateCustomer(customer : List_Customer) {
+  updateCustomer(customer: List_Customer) {
     this.ref = this.dialog.open(CustomerUpdateComponent, {
       header: 'Update Customer',
       width: '60%',
@@ -167,7 +167,7 @@ export class ListComponent extends BaseComponent implements OnInit {
       dismissableMask: false,
       style: { 'border-radius': '25px' },
       footer: 'footer',
-      data: {customer}
+      data: { customer }
     });
   }
   onRightClick(event: MouseEvent, customer: List_Customer) {
@@ -178,7 +178,7 @@ export class ListComponent extends BaseComponent implements OnInit {
   }
 
   async deleteCustomer(id: string) {
-  var result =  await this.customerService.delete(id);
+    var result = await this.customerService.delete(id);
     if (result.isSuccessfull) {
       this.alertifyService.message("Customer Deleted", {
         messageType: MessageType.Success,
