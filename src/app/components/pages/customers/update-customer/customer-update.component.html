@@ -39,8 +39,6 @@
         </small>
       </div>
 
-
-
       <!-- District -->
       <div class="p-field">
         <label for="districtId">District</label>
@@ -75,6 +73,16 @@
         <input id="taxNumber" pInputText formControlName="taxNumber" />
         <small *ngIf="customer.get('taxNumber').invalid && customer.get('taxNumber').touched" class="p-error">
           Tax Number is required.
+        </small>
+      </div>
+
+      <!-- Payment Method -->
+      <div class="p-field">
+        <label for="paymentMethod">Payment Method</label>
+        <p-dropdown id="paymentMethod" formControlName="paymentMethod" [options]="paymentMethods"
+          optionLabel="methodName" optionValue="methodName"></p-dropdown>
+        <small *ngIf="customer.get('paymentMethod').invalid && customer.get('paymentMethod').touched" class="p-error">
+          Payment Method is required.
         </small>
       </div>
     </div>
@@ -138,6 +146,16 @@
       <div class="p-field">
         <label for="idNumber">ID Number</label>
         <input id="idNumber" pInputText formControlName="idNumber" />
+      </div>
+
+      <!-- Currency Type -->
+      <div class="p-field">
+        <label for="currencyType">Currency Type</label>
+        <p-dropdown id="currencyType" formControlName="currencyType" [options]="currencyTypes" optionLabel="currencyId"
+          optionValue="currencyId"></p-dropdown>
+        <small *ngIf="customer.get('currencyType').invalid && customer.get('currencyType').touched" class="p-error">
+          Currency Type is required.
+        </small>
       </div>
     </div>
 

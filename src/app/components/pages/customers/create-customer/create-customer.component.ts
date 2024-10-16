@@ -1,7 +1,5 @@
-import { Customer } from './../../../../services/entites/Customer';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Create_Customer } from '../../../../services/contracts/customer/Create_Customer';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
@@ -30,6 +28,8 @@ export class CreateCustomerComponent implements OnInit {
   cities: any[] = [];
   districts: any[] = [];
   neighborhoods: any[] = [];
+  currencyTypes: any[];
+  paymentMethods: any[];
 
   constructor(
     public ref: DynamicDialogRef,
@@ -58,6 +58,8 @@ export class CreateCustomerComponent implements OnInit {
       taxOffice: [''],
       idNumber: [''],
       notes: [''],
+      currencyType: [''],
+      paymentMethod: [''],
     });
 
     this.addressService.getCountry().subscribe((response) => {
@@ -75,6 +77,20 @@ export class CreateCustomerComponent implements OnInit {
     this.customer.get('districtId')?.valueChanges.subscribe((districtId: string) => {
       this.onDistrictChange(districtId);
     });
+    this.currencyTypes = [
+      { currencyId: 'USD' },
+      { currencyId: 'EUR' },
+      { currencyId: 'TRY' },
+      { currencyId: 'GBP' }
+    ];
+
+    this.paymentMethods = [
+      { methodName: 'Credit Card' },
+      { methodName: 'Bank Transfer' },
+      { methodName: 'Cash' },
+      { methodName: 'Check' },
+      { methodName: 'Promissory Note' }
+    ];
   }
 
   onCountryChange(countryId: string) {

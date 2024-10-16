@@ -1,31 +1,26 @@
-@if (!item.hidden) {
-  @if (item.url && !item.external) {
-    <li [ngClass]="item.classes" [routerLinkActive]="['active']">
-      <a class="nav-link" [target]="item.target ? '_blank' : '_self'" [routerLink]="[item.url]" (click)="closeOtherMenu($event)">
-        @if (item.icon) {
-          <span class="pcoded-micon"><i class="feather" [ngClass]="item.icon"></i></span>
-        }
-        @if (item.icon) {
-          <span class="pcoded-mtext">{{ item.title }}</span>
-        } @else {
-          {{ item.title }}
-        }
-      </a>
-    </li>
-  }
+<li *ngIf="!item.hidden" [ngClass]="item.classes" [routerLinkActive]="['active']">
+  <a *ngIf="item.url && !item.external" class="nav-link" [target]="item.target ? '_blank' : '_self'"
+    [routerLink]="[item.url]" (click)="closeOtherMenu($event)">
+    <span class="pcoded-micon" *ngIf="item.icon">
+      <i class="feather" [ngClass]="item.icon"></i>
+    </span>
+    <span class="pcoded-mtext" *ngIf="item.icon; else noIcon">
+      {{ item.title }}
+    </span>
+    <ng-template #noIcon>
+      {{ item.title }}
+    </ng-template>
+  </a>
 
-  @if (item.url && item.external) {
-    <li [ngClass]="item.classes">
-      <a [target]="item.target ? '_blank' : '_self'" [href]="item.url">
-        @if (item.icon) {
-          <span class="pcoded-micon"><i class="feather" [ngClass]="item.icon"></i></span>
-        }
-        @if (item.icon) {
-          <span class="pcoded-mtext">{{ item.title }}</span>
-        } @else {
-          {{ item.title }}
-        }
-      </a>
-    </li>
-  }
-}
+  <a *ngIf="item.url && item.external" [target]="item.target ? '_blank' : '_self'"> <!--[href]="item.url" -->
+    <span class="pcoded-micon" *ngIf="item.icon">
+      <i class="feather" [ngClass]="item.icon"></i>
+    </span>
+    <span class="pcoded-mtext" *ngIf="item.icon; else noIconExternal">
+      {{ item.title }}
+    </span>
+    <ng-template #noIconExternal>
+      {{ item.title }}
+    </ng-template>
+  </a>
+</li>
