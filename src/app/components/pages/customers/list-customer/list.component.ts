@@ -45,7 +45,7 @@ export class ListComponent extends BaseComponent implements OnInit {
   @ViewChild('table') table!: Table;
   ref: DynamicDialogRef | undefined;
   customers!: List_Customer[]
-  paginator: { pageIndex: number, pageSize: number } = { pageIndex: 0, pageSize: 5 };
+  paginator: { pageIndex: number, pageSize: number } = { pageIndex: 0, pageSize: 15 };
   totalCount: number;
   customerId: string;
   customer: List_Customer;
@@ -63,6 +63,7 @@ export class ListComponent extends BaseComponent implements OnInit {
       { field: 'code', header: 'Kod', filterType: 'text' },
       { field: 'name', header: 'Kısa Ad', filterType: 'text' },
       { field: 'paymentMethod', header: 'Ödeme Türü', filterType: 'text' },
+      { field: 'currencyTypes', header: 'Para Birimi', filterType: 'text' },
       { field: 'countryCode', header: 'Ülke Kodu', filterType: 'text' },
       { field: 'countryName', header: 'Ülke', filterType: 'text' },
       { field: 'cityName', header: 'İl', filterType: 'text' },
@@ -156,6 +157,11 @@ export class ListComponent extends BaseComponent implements OnInit {
       style: { 'border-radius': '25px' },
       footer: 'footer',
     });
+    this.ref.onClose.subscribe((created: boolean) => {
+      if (created) {
+        this.getCustomerList();
+      }
+    });
   }
   updateCustomer(customer: List_Customer) {
     this.ref = this.dialog.open(CustomerUpdateComponent, {
@@ -169,6 +175,11 @@ export class ListComponent extends BaseComponent implements OnInit {
       style: { 'border-radius': '25px' },
       footer: 'footer',
       data: { customer }
+    });
+    this.ref.onClose.subscribe((updated: boolean) => {
+      if (updated) {
+        this.getCustomerList();
+      }
     });
   }
   onRightClick(event: MouseEvent, customer: List_Customer) {

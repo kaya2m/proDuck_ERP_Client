@@ -2,6 +2,7 @@ export class Create_Customer {
     code: string;
     name: string;
     paymentMethod: string;
+    currencyTypes: string;
     countryCode: string;
     countryId: string;
     cityId: string;

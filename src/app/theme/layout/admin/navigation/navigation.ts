@@ -57,6 +57,14 @@ const NavigationItems = [
       },
       {
         id: 'tables',
+        title: 'Customer Relations',
+        type: 'item',
+        url: '/tables/bootstrap',
+        classes: 'nav-item',
+        icon: 'feather icon-mail'
+      },
+      {
+        id: 'tables',
         title: 'Customers Address',
         type: 'item',
         url: '/tables/bootstrap',
@@ -71,14 +79,7 @@ const NavigationItems = [
         classes: 'nav-item',
         icon: 'feather icon-server'
       },
-      {
-        id: 'tables',
-        title: 'Customers Finance',
-        type: 'item',
-        url: '/tables/bootstrap',
-        classes: 'nav-item',
-        icon: 'feather icon-server'
-      }
+
     ]
   },
   {

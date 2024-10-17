@@ -44,6 +44,7 @@ export class CreateCustomerComponent implements OnInit {
       companyName: ['', Validators.required],
       contactNumber: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
+      countryCode: [''],
       countryId: ['', Validators.required],
       cityId: [{ value: '', disabled: true }, Validators.required],
       districtId: [{ value: '', disabled: true }, Validators.required],
@@ -67,6 +68,10 @@ export class CreateCustomerComponent implements OnInit {
     });
 
     this.customer.get('countryId')?.valueChanges.subscribe((countryId: string) => {
+      const selectedCountry = this.countries.find(country => country.countryId === countryId);
+      if (selectedCountry) {
+        this.customer.get('countryCode')?.setValue(selectedCountry.countryCode);
+      }
       this.onCountryChange(countryId);
     });
 
@@ -144,8 +149,7 @@ export class CreateCustomerComponent implements OnInit {
             messageType: ToastrMessageType.Success,
             position: ToastrPosition.TopRight,
           });
-          this.closeDialog();
-          await this.listComponent.getCustomerList();
+          this.closeDialog(true);
         },
         (error) => {
           this.toastrService.message('Error', 'Error saving customer', {
@@ -162,7 +166,7 @@ export class CreateCustomerComponent implements OnInit {
     }
   }
 
-  closeDialog(): void {
-    this.ref.close();
+  closeDialog(created:boolean): void {
+    this.ref.close(created);
   }
 }

@@ -27,7 +27,7 @@ import { AddressService } from '../../../../services/common/models/address.servi
 })
 export class CustomerUpdateComponent extends BaseComponent {
 
-  @ViewChild(ListComponent) listComponent!: ListComponent;
+  @ViewChild(ListComponent) listComponent: ListComponent;
   customer: FormGroup;
   customerData: GetById_Customer;
   countries: any[] = [];
@@ -52,9 +52,11 @@ export class CustomerUpdateComponent extends BaseComponent {
 
   ngOnInit(): void {
     this.customer = this.fb.group({
+      id: [this.config.data.customer.id],
       companyName: ['', Validators.required],
       contactNumber: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
+      countryCode: [''],
       countryId: ['', Validators.required],
       cityId: [{ value: '', disabled: true }, Validators.required],
       districtId: [{ value: '', disabled: true }, Validators.required],
@@ -64,13 +66,13 @@ export class CustomerUpdateComponent extends BaseComponent {
       taxNumber: ['', Validators.required],
       name: ['',],
       contactNumber2: [''],
-      email2: ['',Validators.email],
+      email2: ['', Validators.email],
       address2: [''],
       taxOffice: [''],
       idNumber: [''],
       notes: [''],
       paymentMethod: ['',],
-      currencyType: ['',]
+      currencyTypes: ['',]
     });
 
     this.loadCustomerData();
@@ -108,7 +110,12 @@ export class CustomerUpdateComponent extends BaseComponent {
 
   setupFormValueChanges(): void {
     this.customer.get('countryId')?.valueChanges.subscribe((countryId: string) => {
+      const selectedCountry = this.countries.find(country => country.countryId === countryId);
+      if (selectedCountry) {
+        this.customer.get('countryCode')?.setValue(selectedCountry.countryCode);
+      }
       this.onCountryChange(countryId);
+
     });
 
     this.customer.get('cityId')?.valueChanges.subscribe((cityId: string) => {
@@ -177,7 +184,6 @@ export class CustomerUpdateComponent extends BaseComponent {
   }
 
   updateCustomer(customer: Create_Customer) {
-    debugger;
     if (this.customer.valid) {
       this.customerService.update(customer,
         (result) => {
@@ -185,8 +191,7 @@ export class CustomerUpdateComponent extends BaseComponent {
             messageType: ToastrMessageType.Success,
             position: ToastrPosition.TopRight
           });
-          this.closeDialog();
-          this.listComponent.getCustomerList();
+          this.closeDialog(true);
         },
         (error) => {
           this.toastrService.message("Hata", "Müşteri güncelleme başarısız", {
@@ -202,7 +207,7 @@ export class CustomerUpdateComponent extends BaseComponent {
     }
   }
 
-  closeDialog(): void {
-    this.ref.close();
+  closeDialog(updated: boolean): void {
+    this.ref.close(updated);
   }
 }
