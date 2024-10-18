@@ -57,9 +57,9 @@ const NavigationItems = [
       },
       {
         id: 'tables',
-        title: 'Customer Relations',
+        title: 'Customer Interaction',
         type: 'item',
-        url: '/tables/bootstrap',
+        url: '/dashboard/customer-interaction',
         classes: 'nav-item',
         icon: 'feather icon-mail'
       },

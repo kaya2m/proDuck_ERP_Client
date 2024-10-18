@@ -22,3 +22,4 @@ export class CustomersComponent extends BaseComponent  implements OnInit {
 }
     @ViewChild(ListComponent) listComponent : ListComponent;
 }
+ 

@@ -5,6 +5,7 @@ import { AdminComponent } from './theme/layout/admin/admin.component';
 import { AuthSigninComponent } from './components/authentication/auth-signin/auth-signin.component';
 import AuthSignupComponent from './components/authentication/auth-signup/auth-signup.component';
 import { CustomersComponent } from './components/pages/customers/customers.component';
+import { CustomerInteractionComponent } from './components/pages/customer-interaction/customer-interaction.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
         path: 'customers',
         component: CustomersComponent
       },
+      {
+        path: 'customer-interaction',
+        component:CustomerInteractionComponent
+      }
     ],
   },
 ];
